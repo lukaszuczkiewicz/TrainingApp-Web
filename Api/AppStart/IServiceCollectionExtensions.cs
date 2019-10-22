@@ -12,11 +12,6 @@ namespace TraingAppBackEnd.AppStart
 {
     public static class IServiceCollectionExtensions
     {
-        public static void AppStartAddHttpClient(this IServiceCollection services)
-        {
-            services.AddHttpClient();
-        }
-
         public static void AddCustomCorsPolicy(this IServiceCollection services, IConfiguration configuration)
         {
             var allowedOrigins = configuration
@@ -66,11 +61,6 @@ namespace TraingAppBackEnd.AppStart
         {
             services.Configure<JwtOptions>(configuration.GetSection("JwtOptions"));
             services.Configure<ConnectionStrings>(configuration.GetSection("ConnectionStrings"));
-        }
-
-        public static void AddSeriloger(this IServiceCollection services)
-        {
-            services.AddSingleton(Log.Logger);
         }
     }
 }

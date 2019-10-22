@@ -8,15 +8,13 @@ namespace Persistence.Mappings
     {
         public void Configure(EntityTypeBuilder<Runner> builder)
         {
-            builder.ToTable("Runners", "Core");
+            builder.ToTable("Runners", schema: "Core");
 
             builder.HasKey(r => r.Id)
                 .ForSqlServerIsClustered(false);
 
             builder.Property(r => r.Id)
                 .ValueGeneratedNever();
-
-            builder.HasAlternateKey(r => r.Login);
 
             builder.Property(r => r.Email)
                 .HasColumnName("Email");

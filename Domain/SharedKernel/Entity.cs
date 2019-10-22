@@ -1,6 +1,4 @@
-﻿using Domain.Interfaces;
-using System;
-using System.Collections.Generic;
+﻿using System;
 
 namespace Domain.SharedKernel
 {
@@ -14,13 +12,6 @@ namespace Domain.SharedKernel
         {
             Id = Guid.NewGuid();
         }
-
-        //public ICollection<IEvent> events { get; private set; }
-
-        //protected void ApplyEvent(IEvent @event) // @ => just because evet is C# key word
-        //{
-        //    events.Add(@event);
-        //}
 
         public virtual Guid Id { get; protected set; }
         protected virtual object Actual => this;

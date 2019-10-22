@@ -9,9 +9,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence;
+using Serilog;
 using System;
 using TraingAppBackEnd.AppStart;
 using TraingAppBackEnd.CompositionRoot;
+using TraingAppBackEnd.Middleware;
 
 namespace TraingAppBackEnd
 {
@@ -38,7 +40,6 @@ namespace TraingAppBackEnd
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddFluentValidation(o => o.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
-            services.AppStartAddHttpClient();
             services.AddAppSettings(Configuration);
             services.AddJWTTokenAuthentication(Configuration);
             services.AddCustomCorsPolicy(Configuration);
@@ -56,7 +57,8 @@ namespace TraingAppBackEnd
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-
+            //app.UseSerilogRequestLogging();
+            app.UseMiddleware<ErrorHandligMiddleware>();
             app.UseAuthentication();
             app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             app.UseHttpsRedirection();         

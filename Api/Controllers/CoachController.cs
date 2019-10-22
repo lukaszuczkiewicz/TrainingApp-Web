@@ -7,7 +7,7 @@ using TraingAppBackEnd.ViewModels;
 
 namespace TraingAppBackEnd.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [ApiController]
     [Route("api/coach")]
     public class CoachController: ControllerBase

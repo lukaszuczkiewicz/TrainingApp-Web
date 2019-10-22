@@ -4,10 +4,16 @@ using System.Collections.Generic;
 
 namespace Domain
 {
-    public sealed class Coach : Entity, IUser
+    public class Coach : AggregateRoot, IUser
     {
         private Coach(string login, string password, string firstName, string lastName, Email email)
-        { }
+        {
+            Login = login;
+            Password = Password;
+            FirstName = firstName;
+            LastName = lastName;
+            Email = Email;
+        }
 
         protected Coach() { } // EF Core
 
@@ -16,7 +22,7 @@ namespace Domain
             return new Coach(login, password, firstName, lastName, email);
         }
 
-        public List<Runner> Runners { get; private set; } 
+        public virtual List<Runner> Runners { get; set; }
             = new List<Runner>();
 
         public string Login { get; private set; }
@@ -38,7 +44,7 @@ namespace Domain
 
         public void AddTrainigForRunner(Runner runner, Training training)
         {
-            runner.AddTrainig(training);
+            runner.AddTrainig(training);            
         }
         public void AddTrainigForClub(Club club, Training training)
         {

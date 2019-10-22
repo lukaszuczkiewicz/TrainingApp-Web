@@ -1,10 +1,12 @@
 ﻿using Application.Coach.Commands;
+using Application.Coach.Events;
 using Application.IdentityAndAccess.Services;
-using Application.Runner.Commands;
+//using Application.Notification;
 using ApplicationQueries.IdentityAndAccess;
 using Autofac;
 using Persistence.Dapper.QueryHandlers;
 using PlainCQRS.Core.Commands;
+using PlainCQRS.Core.Events;
 using PlainCQRS.Core.Queries;
 using AuthenticationService = Application.IdentityAndAccess.Services.AuthenticationService;
 
@@ -17,6 +19,7 @@ namespace TraingAppBackEnd.CompositionRoot
             RegisterCommands(builder);
             RegisterQueries(builder);
             RegisterServices(builder);
+            RegisterEvents(builder);
         }
 
         private static void RegisterCommands(ContainerBuilder builder)
@@ -50,6 +53,13 @@ namespace TraingAppBackEnd.CompositionRoot
             builder.RegisterType<PasswordService>()
                 .As<IPasswordService>()
                 .InstancePerLifetimeScope();
+        }
+
+        private static void RegisterEvents(ContainerBuilder builder)
+        {
+            //builder.RegisterType<TrainingCreatedEventHandler>()
+            //    .As<IEventHandlerAsync<TrainingCreated>>()
+            //    .InstancePerLifetimeScope();
         }
     }
 }

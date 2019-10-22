@@ -3,40 +3,38 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Net;
 using System.Threading.Tasks;
-using Serilog;
 
 namespace TraingAppBackEnd.Middleware
 {
     public class ErrorHandligMiddleware
     {
         private readonly RequestDelegate next;
-        private readonly Serilog.ILogger logger;
+        private readonly ILogger<ErrorHandligMiddleware> logger;
 
-        public ErrorHandligMiddleware(RequestDelegate next, Serilog.ILogger logger)
+        public ErrorHandligMiddleware(RequestDelegate next, ILogger<ErrorHandligMiddleware> logger)
         {
             this.next = next;
             this.logger = logger;
         }
 
-        public async Task Invole(HttpContext context)
+        public async Task Invoke(HttpContext context)
         {
             try
             {
+                logger.LogInformation("Middleware is working");
                 await next(context);
             }
             catch (Exception ex)
             {
-                await HandleExceptionAsync(context, ex);
+                HandleExceptionAsync(context, ex);
             }
 
         }
 
-        private async Task HandleExceptionAsync(
-            HttpContext context, Exception ex)
+        private void HandleExceptionAsync(HttpContext context, Exception ex)
         {
             var code = HttpStatusCode.InternalServerError;
-
-            logger.Error(ex, $"Error while handling reqest, status code: {code}");
+            logger.LogError(ex, $"Error while handling reqest, status code: {code}");
         }
     }
 }

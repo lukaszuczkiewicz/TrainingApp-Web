@@ -8,13 +8,23 @@ namespace Persistence.Mappings
     {
         public void Configure(EntityTypeBuilder<Training> builder)
         {
-            builder.ToTable("Trainings", "Core");
+            builder.ToTable("Trainings", schema: "Core");
 
             builder.HasKey(t => t.Id)
                 .ForSqlServerIsClustered(false);
 
             builder.Property(t => t.Id)
                 .ValueGeneratedNever();
+
+            builder.Property(t => t.Coach)
+                .IsRequired();
+
+            builder.Property(t => t.IsDone)
+                .HasColumnType("boolean")
+                .HasDefaultValue(false);
+
+            builder.Property(t => t.Runner)
+                .IsRequired();
         }
     }
 }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Application.IdentityAndAccess.Services
+﻿namespace Application.IdentityAndAccess.Services
 {
     public class LoginRequest
     {

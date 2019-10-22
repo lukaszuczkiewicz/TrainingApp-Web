@@ -3,6 +3,8 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
+using Serilog;
 using TraingAppBackEnd.GoogleAuthenticator;
 
 namespace TraingAppBackEnd.Controllers
@@ -15,7 +17,7 @@ namespace TraingAppBackEnd.Controllers
         private readonly IPreSharedKey preSharedKey;
         private readonly IConfiguration configuration;
         private readonly IMapper mapper;
-        private readonly IAuthenticationService<LoginRequest> authService;               
+        private readonly IAuthenticationService<LoginRequest> authService;
 
         public AuthController(
             IKeyService keyService,

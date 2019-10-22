@@ -11,7 +11,7 @@ namespace Persistence.Mappings
     {
         public void Configure(EntityTypeBuilder<Coach> builder)
         {
-            builder.ToTable("Coaches", "Core");
+            builder.ToTable("Coaches", schema: "Core");
 
             builder.HasKey(c => c.Id)
                 .ForSqlServerIsClustered(false);

@@ -1,4 +1,5 @@
-﻿using Domain.Repositories;
+﻿using Domain;
+using Domain.Repositories;
 using Domain.SharedKernel;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Persistence.EntityFramowork
 {
-    public class WriteRepository<T> : IWriteRepository<T> where T : Entity
+    public class WriteRepository<T> : IWriteRepository<T> where T : Coach
     {
         private readonly DataBaseContext dataBaseContext;
 
@@ -24,10 +25,11 @@ namespace Persistence.EntityFramowork
             var query = dataBaseContext.Set<T>()
                 .AsNoTracking()
                 .Where(predictate);
+                //.Include("Runners");
 
-            foreach(var include in includes)
+            foreach (var include in includes)
             {
-                query.Include(include);
+                query = query.Include(include);
             }
 
             return await query.FirstOrDefaultAsync(cancellationToken);

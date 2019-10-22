@@ -1,9 +1,9 @@
-﻿using Domain.Core.DomainEvents;
-using PlainCQRS.Core.Events;
+﻿using PlainCQRS.Core.Events;
 using Notification;
 using Microsoft.Extensions.Options;
 using RabbitMQ.Client;
 using System.Text;
+using Application.Coach.Events;
 
 namespace Application.Notification
 {
