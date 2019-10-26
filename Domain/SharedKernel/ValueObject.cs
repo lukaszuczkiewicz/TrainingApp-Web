@@ -30,16 +30,20 @@ namespace Domain.SharedKernel
             {
                 return false;
             }
+
             ValueObject other = (ValueObject)obj;
             IEnumerator<object> thisValues = GetAtomicValues().GetEnumerator();
             IEnumerator<object> otherValues = other.GetAtomicValues().GetEnumerator();
             while (thisValues.MoveNext() && otherValues.MoveNext())
             {
-                if (ReferenceEquals(thisValues.Current, null) ^ ReferenceEquals(otherValues.Current, null))
+                if (ReferenceEquals(thisValues.Current, null) ^
+                    ReferenceEquals(otherValues.Current, null))
                 {
                     return false;
                 }
-                if (thisValues.Current != null && !thisValues.Current.Equals(otherValues.Current))
+
+                if (thisValues.Current != null &&
+                    !thisValues.Current.Equals(otherValues.Current))
                 {
                     return false;
                 }
@@ -53,10 +57,6 @@ namespace Domain.SharedKernel
              .Select(x => x != null ? x.GetHashCode() : 0)
              .Aggregate((x, y) => x ^ y);
         }
-
-        public ValueObject GetCopy()
-        {
-            return this.MemberwiseClone() as ValueObject;
-        }
+        // Other utility methods
     }
 }

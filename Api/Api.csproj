@@ -28,6 +28,7 @@
     <ProjectReference Include="..\Application.GoogleAuthenticator\Application.GoogleAuthenticator.csproj" />
     <ProjectReference Include="..\Application.Queries\ApplicationQueries.csproj" />
     <ProjectReference Include="..\Application\Application.csproj" />
+    <ProjectReference Include="..\Notification\Notification.csproj" />
     <ProjectReference Include="..\Persistence\Persistence.csproj" />
   </ItemGroup>
 

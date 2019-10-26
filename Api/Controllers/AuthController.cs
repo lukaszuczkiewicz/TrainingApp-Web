@@ -3,8 +3,6 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using Serilog;
 using TraingAppBackEnd.GoogleAuthenticator;
 
 namespace TraingAppBackEnd.Controllers
@@ -36,14 +34,16 @@ namespace TraingAppBackEnd.Controllers
 
         [HttpPost("login")]
         public IActionResult LogIn([FromBody] LoginRequest loginReqest)
-        {
+        {         
             string token = "";
 
             var authResult = authService.AuthenticateAsync(loginReqest, out token);
 
             if (authResult == false)
+            {
                 return Unauthorized("Bad Credentials");
-
+            }
+           
             return Ok(new { JwtToken = token });
         }  
         

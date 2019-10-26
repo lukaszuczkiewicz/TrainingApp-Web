@@ -16,15 +16,8 @@ namespace Persistence.Mappings
             builder.Property(t => t.Id)
                 .ValueGeneratedNever();
 
-            builder.Property(t => t.Coach)
-                .IsRequired();
-
             builder.Property(t => t.IsDone)
-                .HasColumnType("boolean")
                 .HasDefaultValue(false);
-
-            builder.Property(t => t.Runner)
-                .IsRequired();
         }
     }
 }

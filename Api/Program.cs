@@ -6,10 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Serilog;
 using Microsoft.Extensions.Configuration;
 using System.IO;
-using Serilog.Events;
 using System.Reflection;
-using Serilog.Formatting.Json;
-using Serilog.Sinks.MSSqlServer;
 using Api.AppStart;
 
 namespace TraingAppBackEnd
@@ -28,7 +25,9 @@ namespace TraingAppBackEnd
             try
             {
                 Log.Information("Starting web host...");
-                CreateWebHostBuilder(args).Build().Run();
+                CreateWebHostBuilder(args)
+                    .Build()
+                    .Run();
             }
             catch
             {
@@ -37,13 +36,13 @@ namespace TraingAppBackEnd
             finally
             {
                 Log.CloseAndFlush();
-            }      
+            }
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
             .ConfigureServices(s => s.AddAutofac())
-            .UseStartup<Startup>()
+            .UseStartup<Startup>();
             .UseSerilog();      
     }
 }

@@ -25,8 +25,10 @@ namespace Persistence.Mappings
                 .WithOne(r => r.Coach)
                 .HasForeignKey("RunnerId");
 
-            builder.Property(c => c.Email).
-                HasColumnName("Email");
+            builder.OwnsOne<Email>(c => c.Email)
+                .Property(x => x.EmailAdress)
+                .HasColumnName("Email")
+                .IsRequired();
         }
     }
 }
