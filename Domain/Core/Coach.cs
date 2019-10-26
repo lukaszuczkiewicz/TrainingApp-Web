@@ -33,7 +33,7 @@ namespace Domain
 
         public string LastName { get; private set; }
 
-        public Email Email { get; private set; }
+        public virtual Email Email { get; private set; }
 
         public string PreSharedKey { get; private set; }
 

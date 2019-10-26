@@ -16,14 +16,10 @@ namespace Persistence.Mappings
             builder.Property(r => r.Id)
                 .ValueGeneratedNever();
 
-            builder.Property(r => r.Email)
-                .HasColumnName("Email");
-
-            builder.HasMany(r => r.Trainings)
-                .WithOne(t => t.Runner)
-                .HasForeignKey("TrainingId")
-                .OnDelete(DeleteBehavior.SetNull);
-
+            builder.OwnsOne<Email>(c => c.Email)
+                .Property(x => x.EmailAdress)
+                .HasColumnName("Email")
+                .IsRequired();
         }
     }
 }

@@ -6,8 +6,8 @@ namespace Domain
 {
     public class Team
     {
-        IEnumerable<Runner> Runners { get;  }
-        IEnumerable<Coach> Coaches { get; }
+        public virtual IEnumerable<Runner> Runners { get; }
+        public virtual IEnumerable<Coach> Coaches { get; }
 
     }
 }

@@ -1,7 +1,7 @@
 ﻿using Application.Coach.Commands;
 using Application.Coach.Events;
 using Application.IdentityAndAccess.Services;
-//using Application.Notification;
+using Application.Notification;
 using ApplicationQueries.IdentityAndAccess;
 using Autofac;
 using Persistence.Dapper.QueryHandlers;
@@ -57,9 +57,9 @@ namespace TraingAppBackEnd.CompositionRoot
 
         private static void RegisterEvents(ContainerBuilder builder)
         {
-            //builder.RegisterType<TrainingCreatedEventHandler>()
-            //    .As<IEventHandlerAsync<TrainingCreated>>()
-            //    .InstancePerLifetimeScope();
+            builder.RegisterType<TrainingCreatedEventHandler>()
+                .As<IEventHandlerAsync<TrainingCreated>>()
+                .InstancePerLifetimeScope();
         }
     }
 }

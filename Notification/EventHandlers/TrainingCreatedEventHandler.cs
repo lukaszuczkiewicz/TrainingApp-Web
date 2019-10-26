@@ -1,49 +1,34 @@
 ﻿using PlainCQRS.Core.Events;
-using Notification;
-using Microsoft.Extensions.Options;
-using RabbitMQ.Client;
-using System.Text;
 using Application.Coach.Events;
+using Notification.Abstractions;
+using Microsoft.Extensions.Options;
+using SendGrid;
+using SendGrid.Helpers.Mail;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace Application.Notification
 {
-    public class TrainingCreatedEventHandler : IEventHandler<TrainingCreated>
+    public class TrainingCreatedEventHandler : IEventHandlerAsync<TrainingCreated>
     {
-        IOptions<RabitMqSendConfiguration> rabitMqConfiguration;
+        private readonly IOptions<SendGridConfiguration> sendGridConfiguration;
 
-        public TrainingCreatedEventHandler(IOptions<RabitMqSendConfiguration> configuration)
+        public TrainingCreatedEventHandler(IOptions<SendGridConfiguration> sendGridConfiguration)
         {
-            this.rabitMqConfiguration = configuration;
+            this.sendGridConfiguration = sendGridConfiguration;
         }
 
-        public void Handle(TrainingCreated @event)
+
+        public async Task HandleAsync(TrainingCreated @event, CancellationToken cancellationToken = default(CancellationToken))
         {
-            var factory = new ConnectionFactory()
-            {
-                HostName = rabitMqConfiguration.Value.HostName
-            };
-
-            using (var connection = factory.CreateConnection())
-            {
-                using (var model = connection.CreateModel())
-                {
-                    model.QueueDeclare(
-                        queue: rabitMqConfiguration.Value.QueueName,
-                        durable: rabitMqConfiguration.Value.Durable,
-                        exclusive: rabitMqConfiguration.Value.Exclusive,
-                        autoDelete: rabitMqConfiguration.Value.AutoDelete,
-                        arguments: null
-                        );
-
-                    var msgBody = Encoding.UTF8.GetBytes(@event.CoachName);
-
-                    model.BasicPublish(
-                        exchange: "",
-                        routingKey: "",
-                        body: msgBody);
-                }
-            }
-
+            var apiKey = sendGridConfiguration.Value.ApiKey;
+            var client = new SendGridClient(apiKey);
+            var from = new EmailAddress(sendGridConfiguration.Value.EmailAdress, @event.CoachName);
+            var subject = "New Training";
+            var to = new EmailAddress(@event.RunnerEmailAddress, "Runner");
+            var htmlContent = @"<strong>and easy to do anywhere, even with C#</strong>";
+            var msg = MailHelper.CreateSingleEmail(from, to, subject, "", htmlContent);
+            var response = await client.SendEmailAsync(msg);
         }
     }
 }

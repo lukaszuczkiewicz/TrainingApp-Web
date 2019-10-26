@@ -7,7 +7,7 @@ using TraingAppBackEnd.ViewModels;
 
 namespace TraingAppBackEnd.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("api/coach")]
     public class CoachController: ControllerBase
@@ -37,6 +37,7 @@ namespace TraingAppBackEnd.Controllers
             return Ok();
         }
 
+        [AllowAnonymous]
         [HttpPost("create-traing")]
         public async Task<IActionResult> CreateTrening([FromBody] NewTrainingReqest reqest)
         {

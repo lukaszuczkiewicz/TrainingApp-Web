@@ -5,13 +5,14 @@ namespace Application.Coach.Events
 {
     public class TrainingCreated : IEvent
     {
-        public TrainingCreated(Guid id, DateTime created, string coachName)
+        public TrainingCreated(Guid id, DateTime created, string coachName, string runnerEmailAddress)
         {
             Id = id;
             Created = created;
             CoachName = coachName;
+            RunnerEmailAddress = runnerEmailAddress;
         }
-        public TrainingCreated()
+        private TrainingCreated()
         {
 
         }
@@ -20,6 +21,7 @@ namespace Application.Coach.Events
         public DateTime Created { get; private set; }
         public string CoachName { get; private set; }
         public string TrainingDetail { get; set; }
+        public string RunnerEmailAddress { get; set; }
 
     }
 }

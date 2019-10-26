@@ -34,11 +34,13 @@ namespace Application.Coach.Commands
 
             var trainingDetails = TraningDetails.Create(command.Details, command.Comments);
 
-            var training = Training.Create(coach, command.TimeToDo, trainingDetails);
+            var training = Training.Create(command.TimeToDo, trainingDetails);
 
             coach.AddTrainigForRunner(runner, training);
 
-            eventPublisher.Publish(new TrainingCreated());
+            var coachName = $"{coach.FirstName} {coach.LastName}";
+
+            eventPublisher.Publish(new TrainingCreated(training.Id, DateTime.Now, coachName, runner.Email.ToString()));
         }
     }
 }

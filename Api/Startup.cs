@@ -35,7 +35,9 @@ namespace TraingAppBackEnd
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DataBaseContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                options
+                    .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"))
+                    .UseLazyLoadingProxies());
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)

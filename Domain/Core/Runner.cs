@@ -24,12 +24,12 @@ namespace Domain
 
         public string LastName { get; private set; }
 
-        public Email Email { get; private set; }
+        public virtual Email Email { get; private set; }
 
-        public List<Training> Trainings { get; private set; } =
+        public virtual List<Training> Trainings { get; private set; } =
             new List<Training>();
 
-        public Coach Coach { get; private set; }
+        public virtual Coach Coach { get; private set; }
 
         public void Update(string firstName, string lastName, Email email)
         {
