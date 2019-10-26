@@ -42,7 +42,7 @@ namespace TraingAppBackEnd
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
             .ConfigureServices(s => s.AddAutofac())
-            .UseStartup<Startup>();
+            .UseStartup<Startup>()
             .UseSerilog();      
     }
 }
