@@ -19,9 +19,7 @@ namespace Persistence.Dapper.QueryHandlers
 
         public async Task<ApplicationUserViewModel> HandleAsync(FindApplicationUserQuery query, CancellationToken cancellationToken = default)
         {        
-            var sql = @"SELECT Login, Password, Id, PreSharedKey FROM Runners WHERE Login = @Login
-                            UNION
-                        SELECT Login, Password, Id, PreSharedKey FROM Coaches WHERE Login = @Login ";
+            var sql = @"SELECT Login, Password, Id, PreSharedKey FROM Core.Coaches WHERE Login = @Login ";
 
             using (var connection = new SqlConnection(databaseProvider.ConnectionStrings.DefaultConnection))
             {

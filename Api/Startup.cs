@@ -60,7 +60,7 @@ namespace TraingAppBackEnd
                 app.UseHsts();
             }
             //app.UseSerilogRequestLogging();
-            app.UseMiddleware<ErrorHandligMiddleware>();
+            //app.UseMiddleware<ErrorHandligMiddleware>();
             app.UseAuthentication();
             app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             app.UseHttpsRedirection();         
