@@ -23,7 +23,7 @@ namespace Persistence.Mappings
 
             builder.HasMany(c => c.Runners)
                 .WithOne(r => r.Coach)
-                .HasForeignKey("RunnerId");
+                .HasForeignKey("CoachId");
 
             builder.OwnsOne<Email>(c => c.Email)
                 .Property(x => x.EmailAdress)

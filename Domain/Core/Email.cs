@@ -12,8 +12,7 @@ namespace Domain
         {
             EmailAdress = emailAdress;
         }
-
-        private Email() { }
+        protected Email() { }
 
         public static Email Create(string emailAdress)
         {

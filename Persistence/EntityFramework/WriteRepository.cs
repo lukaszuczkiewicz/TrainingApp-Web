@@ -23,9 +23,7 @@ namespace Persistence.EntityFramowork
         public async Task<T> GetByAsync(Expression<Func<T, bool>> predictate, string[] includes,  CancellationToken cancellationToken = default)
         {
             var query = dataBaseContext.Set<T>()
-                .AsNoTracking()
                 .Where(predictate);
-                //.Include("Runners");
 
             foreach (var include in includes)
             {
