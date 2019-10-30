@@ -2,7 +2,7 @@
 {
     public class SendGridConfiguration
     {
-        public string ApiKey { get; set; }
+        public string SendGridKey { get; set; }
         public string EmailAdress { get; set; }
     }
 }

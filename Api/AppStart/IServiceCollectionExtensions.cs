@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Notification.Abstractions;
 using Persistence.Abstractions;
 using Serilog;
 using System.Linq;
@@ -61,6 +62,7 @@ namespace TraingAppBackEnd.AppStart
         {
             services.Configure<JwtOptions>(configuration.GetSection("JwtOptions"));
             services.Configure<ConnectionStrings>(configuration.GetSection("ConnectionStrings"));
+            services.Configure<SendGridConfiguration>(configuration.GetSection("SendGridConfiguration"));
         }
     }
 }

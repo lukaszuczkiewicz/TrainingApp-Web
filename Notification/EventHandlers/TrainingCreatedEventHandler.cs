@@ -21,12 +21,12 @@ namespace Application.Notification
 
         public async Task HandleAsync(TrainingCreated @event, CancellationToken cancellationToken = default(CancellationToken))
         {
-            var apiKey = sendGridConfiguration.Value.ApiKey;
+            var apiKey = sendGridConfiguration.Value.SendGridKey;
             var client = new SendGridClient(apiKey);
             var from = new EmailAddress(sendGridConfiguration.Value.EmailAdress, @event.CoachName);
             var subject = "New Training";
             var to = new EmailAddress(@event.RunnerEmailAddress, "Runner");
-            var htmlContent = @"<strong>and easy to do anywhere, even with C#</strong>";
+            var htmlContent = $@"<span>{@event.TrainingDetail}<span>"; // todo
             var msg = MailHelper.CreateSingleEmail(from, to, subject, "", htmlContent);
             var response = await client.SendEmailAsync(msg);
         }

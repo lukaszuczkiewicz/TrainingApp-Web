@@ -12,9 +12,9 @@ namespace Application.Coach.Commands
     public class CreateTrainingCommandHandler : ICommandHandlerAsync<CreateTrainingCommand>
     {
         private readonly IWriteRepository<Domain.Coach> repository;
-        private readonly IEventPublisher eventPublisher;
+        private readonly IEventPublisherAsync eventPublisher;
 
-        public CreateTrainingCommandHandler(IWriteRepository<Domain.Coach> repository, IEventPublisher eventPublisher)
+        public CreateTrainingCommandHandler(IWriteRepository<Domain.Coach> repository, IEventPublisherAsync eventPublisher)
         {
             this.repository = repository;
             this.eventPublisher = eventPublisher;
@@ -23,8 +23,7 @@ namespace Application.Coach.Commands
         public async Task HandleAsync(CreateTrainingCommand command, CancellationToken cancellationToken = default)
         {
             var coach = await repository.GetByAsync(p => p.Id == command.CoachId, new[] { "Runners" }, cancellationToken);
-
-            if(coach.Runners.Capacity == 0)
+            if (coach.Runners.Capacity == 0)
                 throw new ArgumentNullException("Coach does not have this runner!");
 
             var runner = coach.Runners.Find(r => r.Id == command.RunnerId);
@@ -40,7 +39,8 @@ namespace Application.Coach.Commands
 
             var coachName = $"{coach.FirstName} {coach.LastName}";
 
-            eventPublisher.Publish(new TrainingCreated(training.Id, DateTime.Now, coachName, runner.Email.ToString()));
+            await eventPublisher.PublishAsync<TrainingCreated>
+                (new TrainingCreated(training.Id, DateTime.Now, coachName, runner.Email.EmailAdress));
         }
     }
 }
