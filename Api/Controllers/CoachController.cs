@@ -10,7 +10,7 @@ namespace TraingAppBackEnd.Controllers
     [Authorize]
     [ApiController]
     [Route("api/coach")]
-    public class CoachController: ControllerBase
+    public class CoachController : ControllerBase
     {
         private readonly ICommandSenderAsync commandSender;
 
@@ -37,12 +37,10 @@ namespace TraingAppBackEnd.Controllers
             return Ok();
         }
 
-        [AllowAnonymous]
         [HttpPost("create-traing")]
         public async Task<IActionResult> CreateTrening([FromBody] NewTrainingReqest reqest)
         {
             var command = new CreateTrainingCommand(
-                coachId: reqest.CoachId,
                 runnerId: reqest.RunnerId,
                 timeToDo: reqest.TimeToDo,
                 details: reqest.Details,

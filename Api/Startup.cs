@@ -42,6 +42,7 @@ namespace TraingAppBackEnd
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddFluentValidation(o => o.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
+            services.AddHttpContextAccessor();
             services.AddAppSettings(Configuration);
             services.AddJWTTokenAuthentication(Configuration);
             services.AddCustomCorsPolicy(Configuration);

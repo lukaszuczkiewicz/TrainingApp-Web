@@ -4,13 +4,14 @@ using System.Collections.Generic;
 
 namespace Application.Queries.Training.GetTrainingsForUser
 {
-    public class GetTrainingsForUserQuery : IQuery<IEnumerable<TrainingViewModel>>
+    public class GetRunnerTrainingsInMonth : IQuery<IEnumerable<TrainingViewModel>>
 
     {
-        public GetTrainingsForUserQuery(Guid userId)
+        public GetRunnerTrainingsInMonth(Guid runnerId)
         {
-            UserId = userId;
+            RunnerId = runnerId;
         }
-        public Guid UserId { get; protected set; }
+
+        public Guid RunnerId { get; protected set; }
     }
 }
