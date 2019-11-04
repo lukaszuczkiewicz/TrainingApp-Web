@@ -9,6 +9,7 @@ using PlainCQRS.Core.Queries;
 using ApplicationQueries.IdentityAndAccess;
 using Microsoft.Extensions.Options;
 using TraingAppBackEnd.GoogleAuthenticator;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Application.IdentityAndAccess.Services
 {
@@ -58,14 +59,14 @@ namespace Application.IdentityAndAccess.Services
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
             var expTime = DateTime.Now.AddMinutes(jwtOptions.Value.ExpTimeInMinutes);
 
-            var token = new System.IdentityModel.Tokens.Jwt.JwtSecurityToken(
+            var token = new JwtSecurityToken(
                 issuer: jwtOptions.Value.Issuer,
                 audience: jwtOptions.Value.Audience,
                 claims: claims,
                 expires: expTime,
                 signingCredentials: creds);
 
-            var tokenString = new System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler().WriteToken(token);
+            var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
 
             return tokenString;
         }
