@@ -3,11 +3,13 @@ using Application.Coach.Events;
 using Application.IdentityAndAccess.Services;
 using Application.Notification;
 using ApplicationQueries.IdentityAndAccess;
+using ApplicationQueries.Runners;
 using Autofac;
-using Persistence.Dapper.QueryHandlers;
+using Persistence.DapperHandlers.QueryHandlers;
 using PlainCQRS.Core.Commands;
 using PlainCQRS.Core.Events;
 using PlainCQRS.Core.Queries;
+using System.Collections.Generic;
 using AuthenticationService = Application.IdentityAndAccess.Services.AuthenticationService;
 
 namespace TraingAppBackEnd.CompositionRoot
@@ -41,6 +43,10 @@ namespace TraingAppBackEnd.CompositionRoot
         {
             builder.RegisterType<FindApplicationUserQueryHandler>()
                 .As<IQueryHandlerAsync<FindApplicationUserQuery, ApplicationUserViewModel>>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<GetRunnersQueryHandler>()
+                .As<IQueryHandlerAsync<GetRunnersQuery, IEnumerable<RunnerViewModel>>>()
                 .InstancePerLifetimeScope();
         }
 

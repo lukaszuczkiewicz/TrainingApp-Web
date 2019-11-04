@@ -1,7 +1,9 @@
 ﻿using Application.Coach.Commands;
+using ApplicationQueries.Runners;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PlainCQRS.Core.Commands;
+using PlainCQRS.Core.Queries;
 using System.Threading.Tasks;
 using TraingAppBackEnd.ViewModels;
 
@@ -13,10 +15,12 @@ namespace TraingAppBackEnd.Controllers
     public class CoachController : ControllerBase
     {
         private readonly ICommandSenderAsync commandSender;
+        private readonly IQueryDispatcherAsync queryDispatcher;
 
-        public CoachController(ICommandSenderAsync commandSender)
+        public CoachController(ICommandSenderAsync commandSender, IQueryDispatcherAsync queryDispatcher)
         {
             this.commandSender = commandSender;
+            this.queryDispatcher = queryDispatcher;
         }
 
         [AllowAnonymous]
@@ -37,7 +41,7 @@ namespace TraingAppBackEnd.Controllers
             return Ok();
         }
 
-        [HttpPost("create-traing")]
+        [HttpPost("traing")]
         public async Task<IActionResult> CreateTrening([FromBody] NewTrainingReqest reqest)
         {
             var command = new CreateTrainingCommand(
@@ -50,6 +54,16 @@ namespace TraingAppBackEnd.Controllers
             await commandSender.SendAsync(command);
 
             return Ok();
+        }
+
+        [HttpGet("runners")]
+        public async Task<IActionResult> GetRunners()
+        {
+            var query = new GetRunnersQuery();
+
+            var result = await queryDispatcher.ExecuteAsync(query);
+
+            return Ok(result);
         }
     }
 }

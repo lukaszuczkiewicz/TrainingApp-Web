@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Persistence.Dapper.QueryHandlers
+namespace Persistence.DapperHandlers.QueryHandlers
 {
     //public class GetRunnerTrainingsInMonthQueryHandler : IQueryHandlerAsync<GetRunnerTrainingsInMonth, TrainingViewModel>
     //{

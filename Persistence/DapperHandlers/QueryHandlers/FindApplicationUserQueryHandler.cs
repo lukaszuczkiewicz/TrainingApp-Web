@@ -6,7 +6,7 @@ using System.Data.SqlClient;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Persistence.Dapper.QueryHandlers
+namespace Persistence.DapperHandlers.QueryHandlers
 {
     public class FindApplicationUserQueryHandler : IQueryHandlerAsync<FindApplicationUserQuery, ApplicationUserViewModel>
     {
