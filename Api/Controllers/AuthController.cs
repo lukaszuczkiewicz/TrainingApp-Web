@@ -47,7 +47,6 @@ namespace TraingAppBackEnd.Controllers
             return Ok(new { JwtToken = token });
         }  
         
-        [Authorize]
         [HttpGet("pre-shared-key")]
         public IActionResult GetPreSharedKey()
         {

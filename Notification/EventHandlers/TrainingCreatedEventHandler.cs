@@ -19,7 +19,7 @@ namespace Application.Notification
         }
 
 
-        public async Task HandleAsync(TrainingCreated @event, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task HandleAsync(TrainingCreated @event, CancellationToken cancellationToken = default)
         {
             var apiKey = sendGridConfiguration.Value.SendGridKey;
             var client = new SendGridClient(apiKey);
