@@ -31,7 +31,6 @@ namespace TraningAppTests.GoogleAuthenticatorTests
             {
                 Assert.That(alphabet.Contains(letter), Is.True);
             }
-
         }
     }
 }

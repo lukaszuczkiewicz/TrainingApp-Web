@@ -9,7 +9,6 @@ namespace TraningAppTests.GoogleAuthenticatorTests
         private PreSharedKey PreSharedKeyGenerator;
         private const int properLength = 16;
 
-
         [SetUp]
         public void SetUp()
         {
