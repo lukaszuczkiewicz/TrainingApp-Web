@@ -6,20 +6,21 @@ namespace Domain
 {
     public class Coach : AggregateRoot, IUser
     {
-        private Coach(string login, string password, string firstName, string lastName, Email email)
+        private Coach(string login, string password, string firstName, string lastName, string preSharedKey, Email email)
         {
             Login = login;
-            Password = Password;
+            Password = password;
             FirstName = firstName;
             LastName = lastName;
             Email = Email;
+            PreSharedKey = preSharedKey;
         }
 
         protected Coach() { } // EF Core
 
-        public static Coach Create(string login, string password, string firstName, string lastName, Email email)
+        public static Coach Create(string login, string password, string firstName, string lastName, string preSharedKey, Email email)
         {
-            return new Coach(login, password, firstName, lastName, email);
+            return new Coach(login, password, firstName, lastName, preSharedKey, email);
         }
 
         public virtual List<Runner> Runners { get; set; }

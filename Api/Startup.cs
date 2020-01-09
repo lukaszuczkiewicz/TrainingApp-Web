@@ -1,4 +1,5 @@
-﻿using Application.IdentityAndAccess.Services;
+﻿using Application.Coach.Commands;
+using Application.IdentityAndAccess.Services;
 using Autofac;
 using AutoMapper;
 using FluentValidation.AspNetCore;
@@ -41,7 +42,12 @@ namespace TraingAppBackEnd
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .AddFluentValidation(o => o.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>());
+                .AddFluentValidation(o => 
+                    {
+                        o.RegisterValidatorsFromAssemblyContaining<LoginRequestValidator>();
+                        o.RegisterValidatorsFromAssemblyContaining<CreateCoachCommandValidator>();
+                    }
+                );
             services.AddHttpContextAccessor();
             services.AddAppSettings(Configuration);
             services.AddJWTTokenAuthentication(Configuration);

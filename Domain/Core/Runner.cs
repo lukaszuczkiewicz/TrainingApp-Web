@@ -7,15 +7,15 @@ namespace Domain
     {
         protected Runner() { }
 
-        private Runner(string firstName, string lastName, string email)
+        private Runner(string firstName, string lastName, Email email)
         {
 
-            Email = Email.Create(email);
+            Email = email;
             FirstName = firstName;
             LastName = lastName;
         }
 
-        public static Runner Create (string firstName, string lastName, string email)
+        public static Runner Create (string firstName, string lastName, Email email)
         {
             return new Runner(firstName, lastName, email);
         }

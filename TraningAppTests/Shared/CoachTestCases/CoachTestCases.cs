@@ -9,9 +9,9 @@ namespace TraningAppTests.Shared.CoachTestCases
         {
             get
             {
-                yield return new TestCaseData("a@gmail.com", "login", "password", "firstName", "lastName");
-                yield return new TestCaseData("Maciek@gmail.com", "Maciek", "A231@", "Maciek", "Maciek");
-                yield return new TestCaseData("Tomek@gmail.com", "!@#$!@#$", "!@#$!@#$", "!@#$!@#$#$%^&", "#$%^&(*(@#$%DFG");
+                yield return new TestCaseData("a@gmail.com", "login", "password", "firstName", "lastName", "qwertyqwerty");
+                yield return new TestCaseData("Maciek@gmail.com", "Maciek", "A231@", "Maciek", "Maciek", "asdfghasdfgh");
+                yield return new TestCaseData("Tomek@gmail.com", "!@#$!@#$", "!@#$!@#$", "!@#$!@#$#$%^&", "#$%^&(*(@#$%DFG", "zxcvbnzxcvbn");
             }
         }
     }

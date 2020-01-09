@@ -24,6 +24,7 @@ namespace Application.Coach.Commands
                 password: command.Password,
                 firstName: command.FirstName,
                 lastName: command.LastName,
+                preSharedKey: command.PreSharedKey,
                 email: email);
 
             await repository.SaveAsync(coach);

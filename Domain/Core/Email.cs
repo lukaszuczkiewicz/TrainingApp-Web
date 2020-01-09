@@ -1,6 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Domain.SharedKernel;
+using System.Net.Mail;
+using System;
 
 namespace Domain
 {
@@ -16,6 +17,9 @@ namespace Domain
 
         public static Email Create(string emailAdress)
         {
+            if (!emailAdress.Contains('@'))
+                throw new ArgumentException();
+
             return new Email(emailAdress);
         }
 

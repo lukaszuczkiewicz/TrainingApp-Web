@@ -27,15 +27,15 @@ namespace TraningAppTests.Persistance.EFTests
                 .Options;
 
             additionalEmail = Email.Create(additionalEmailAddres);
-            additionalCoach = Coach.Create("abc", "abc", "abc", "abc", additionalEmail);
+            additionalCoach = Coach.Create("abc", "abc", "abc", "abc", "yuioptyuiopt", additionalEmail);
         }
 
         [Test]
         [TestCaseSource(typeof(CoachTestCases), "TestCases")]
-        public void GetByFirstNameAsyncShouldReturnCoach(string emailAddres, string login, string password, string firstName, string lastName)
+        public void GetByFirstNameAsyncShouldReturnCoach(string emailAddres, string login, string password, string firstName, string lastName, string preSharedKey)
         {
             var email = Email.Create(emailAddres);
-            var aggregateRoot = Coach.Create(login, password , firstName, lastName, email);
+            var aggregateRoot = Coach.Create(login, password , firstName, lastName, preSharedKey, email);
             Expression<Func<Coach, bool>> predictate = (x) => x.FirstName == firstName;
 
             using (var context = new DataBaseContext(options))
