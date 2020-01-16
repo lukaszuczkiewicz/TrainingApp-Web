@@ -1,5 +1,4 @@
 ﻿using Application.Coach.Commands;
-using Domain.Repositories;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
@@ -52,6 +51,12 @@ namespace TraningAppTests.Application.Coach.Commands
             Assert.AreEqual(coach.LastName, lastName);
             Assert.AreEqual(coach.PreSharedKey, preSharedKey); 
             Assert.That(coach.Id, Is.Not.Null);         
-        }          
+        }  
+        
+        [TearDown]
+        public void TearDown()
+        {
+            context.Dispose();
+        }
     }
 }

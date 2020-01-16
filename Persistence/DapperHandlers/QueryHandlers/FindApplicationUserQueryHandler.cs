@@ -10,7 +10,7 @@ namespace Persistence.DapperHandlers.QueryHandlers
 {
     public class FindApplicationUserQueryHandler : IQueryHandlerAsync<FindApplicationUserQuery, ApplicationUserViewModel>
     {
-         private readonly IDbConfigProvider databaseProvider;
+        private readonly IDbConfigProvider databaseProvider;
 
         public FindApplicationUserQueryHandler(IDbConfigProvider databaseProvider)
         {

@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using Api.CompositionRoot;
+using Autofac;
 
 namespace TraingAppBackEnd.CompositionRoot
 {
@@ -12,7 +13,8 @@ namespace TraingAppBackEnd.CompositionRoot
             builder.RegisterModule(new Autofac());
             builder.RegisterModule(new AplicationModule());
             builder.RegisterModule(new WebModule());
-            builder.RegisterModule(new GoogleAuthenticatorModule());          
+            builder.RegisterModule(new GoogleAuthenticatorModule());
+            builder.RegisterModule(new NotificationModule());
         }
     }
 }

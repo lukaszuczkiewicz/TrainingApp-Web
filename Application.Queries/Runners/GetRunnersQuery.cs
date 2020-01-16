@@ -1,8 +1,5 @@
-﻿using ApplicationQueries.Runners;
-using PlainCQRS.Core.Queries;
-using System;
+﻿using PlainCQRS.Core.Queries;
 using System.Collections.Generic;
-using System.Text;
 
 namespace ApplicationQueries.Runners
 {

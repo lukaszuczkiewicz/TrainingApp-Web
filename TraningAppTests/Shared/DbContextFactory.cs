@@ -22,8 +22,8 @@ namespace TraningAppTests.Shared
             var coachEmail = Email.Create("DbContextFactorycoach@email.com");
             var coach = Coach.Create("DbContextFactorylogin", "DbContextFactorypassword", "DbContextFactoryfirstName", "DbContextFactorylastName", "Qwertyqwerty", coachEmail); 
 
-            var runnerEmail = Email.Create("runner@email.com");
-            var runner = Runner.Create("runnerName", "runnerLastName", runnerEmail);
+            var runnerEmail = Email.Create("DbContextFactoryrunner@email.com");
+            var runner = Runner.Create("DbContextFactoryrunnerName", "DbContextFactoryrunnerLastName", runnerEmail);
 
 
             var trainingDetails = TraningDetails.Create("details", "comment");

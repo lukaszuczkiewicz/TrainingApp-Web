@@ -1,17 +1,38 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Extensions.Hosting;
+using ApplicationQueries.Runners;
+
+using Microsoft.Extensions.Options;
+using Notification.Abstractions;
+using Notification.Email;
+using PlainCQRS.Core.Queries;
 
 namespace Notification.BackgroudServices
 {
-    public class EmailBackgroudService : BackgroundService
+    public class EmailBackgroudService
     {
-        protected override Task ExecuteAsync(CancellationToken stoppingToken)
+        private readonly IEmailSender emailService;
+        private readonly IQueryDispatcherAsync queryDispatcher;
+        private readonly IOptions<DailyEmailConfiguration> dailyEmailConfiguration;
+
+        public EmailBackgroudService(
+            IEmailSender emailService, 
+            IQueryDispatcherAsync queryDispatcher, 
+            IOptions<DailyEmailConfiguration> dailyEmailConfiguration)
         {
-            throw new NotImplementedException();
+            this.emailService = emailService;
+            this.queryDispatcher = queryDispatcher;
+            this.dailyEmailConfiguration = dailyEmailConfiguration;
+        }
+
+        public async Task SendDailyEmails()
+        {
+                var coaches = await queryDispatcher.ExecuteAsync(new GetCoachesQuery());
+
+                foreach(var coach in coaches)
+                {
+                    await emailService.SendAsync(coach.Email, dailyEmailConfiguration.Value.FromWho, dailyEmailConfiguration.Value.HtmlContent, new CancellationToken());
+                }
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using Application.IdentityAndAccess.Services;
+using Hangfire;
+using Hangfire.SqlServer;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -6,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using Notification.Abstractions;
 using Persistence.Abstractions;
 using Serilog;
+using System;
 using System.Linq;
 using System.Text;
 
@@ -63,6 +66,31 @@ namespace TraingAppBackEnd.AppStart
             services.Configure<JwtOptions>(configuration.GetSection("JwtOptions"));
             services.Configure<ConnectionStrings>(configuration.GetSection("ConnectionStrings"));
             services.Configure<SendGridConfiguration>(configuration.GetSection("SendGridConfiguration"));
+            services.Configure<DailyEmailConfiguration>(configuration.GetSection("DailyEmailConfiguration"));
+        }
+
+        public static void AddHangfire(this IServiceCollection services, IConfiguration config)
+        {
+            services.AddHangfire(configuration => configuration
+                .SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
+                .UseSimpleAssemblyNameTypeSerializer()
+                .UseRecommendedSerializerSettings()
+                .UseSerilogLogProvider()
+                .UseSqlServerStorage(config.GetConnectionString("HangfireConnection"), new SqlServerStorageOptions()
+                {
+                    CommandBatchMaxTimeout = TimeSpan.FromMinutes(5),
+                    SlidingInvisibilityTimeout = TimeSpan.FromMinutes(5),
+                    QueuePollInterval = TimeSpan.Zero,
+                    UseRecommendedIsolationLevel = true,
+                    UsePageLocksOnDequeue = true,
+                    DisableGlobalLocks = true
+                })
+            );
+
+            services.AddHangfireServer();
+
+            JobStorage.Current = new SqlServerStorage(config.GetConnectionString("HangfireConnection"));
+            //RecurringJob.AddOrUpdate<EmailBackgroudService>(x => x.SendDailyEmails(), Cron.Minutely);
         }
     }
 }

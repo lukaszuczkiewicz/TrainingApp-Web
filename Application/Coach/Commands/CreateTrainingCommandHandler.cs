@@ -1,6 +1,7 @@
 ﻿using Application.Coach.Events;
 using Domain;
 using Domain.Repositories;
+using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using PlainCQRS.Core.Commands;
 using PlainCQRS.Core.Events;

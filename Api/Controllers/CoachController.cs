@@ -40,8 +40,8 @@ namespace TraingAppBackEnd.Controllers
 
             return Ok();
         }
-
-        [HttpPost("traing")]
+        
+        [HttpPost("training")]
         public async Task<IActionResult> CreateTrening([FromBody] NewTrainingReqest reqest)
         {
             var command = new CreateTrainingCommand(

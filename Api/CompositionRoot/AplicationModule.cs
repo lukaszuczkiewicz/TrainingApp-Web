@@ -4,6 +4,7 @@ using Application.IdentityAndAccess.Services;
 using Application.Notification;
 using ApplicationQueries.IdentityAndAccess;
 using ApplicationQueries.Runners;
+using ApplicationQueries.SharedViewModels;
 using Autofac;
 using Persistence.DapperHandlers.QueryHandlers;
 using PlainCQRS.Core.Commands;
@@ -47,6 +48,10 @@ namespace TraingAppBackEnd.CompositionRoot
 
             builder.RegisterType<GetRunnersQueryHandler>()
                 .As<IQueryHandlerAsync<GetRunnersQuery, IEnumerable<RunnerViewModel>>>()
+                .InstancePerLifetimeScope();
+
+            builder.RegisterType<GetCoachesQueryHandler>()
+                .As<IQueryHandlerAsync<GetCoachesQuery, List<CoachWithEmailViewModel>>>()
                 .InstancePerLifetimeScope();
         }
 
