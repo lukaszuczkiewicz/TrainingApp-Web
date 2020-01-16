@@ -64,6 +64,11 @@ namespace TraingAppBackEnd
                     }
                 );
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo() { Title = "TraninigApp", Version = "v1" });
+            });
+
             services.AddHttpContextAccessor();
             services.AddAppSettings(Configuration);
             services.AddJWTTokenAuthentication(Configuration);
@@ -95,7 +100,12 @@ namespace TraingAppBackEnd
             app.UseAuthentication();
             app.UseCors(builder => builder.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             app.UseHttpsRedirection();         
-            app.UseMvc();           
+            app.UseMvc();
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Values Api V1");
+            });
         }
     }
 }
