@@ -43,8 +43,10 @@ namespace TraingAppBackEnd
         {
             services.AddDbContext<DataBaseContext>(options =>
                 options
+                    .EnableDetailedErrors()
+                    .EnableSensitiveDataLogging()
                     .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"),
-                    sqlServerOptionsAction: sqlOptions => 
+                    sqlServerOptionsAction: sqlOptions =>
                     {
                         sqlOptions.EnableRetryOnFailure(
                             maxRetryCount: 20,

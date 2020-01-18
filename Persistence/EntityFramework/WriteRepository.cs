@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Persistence.EntityFramowork
 {
-    public class WriteRepository<T> : IWriteRepository<T> where T : Coach
+    public class WriteRepository<T> : IWriteRepository<T> where T : AggregateRoot
     {
         private readonly DataBaseContext dataBaseContext;
 
@@ -22,7 +22,8 @@ namespace Persistence.EntityFramowork
 
         public async Task<T> GetByAsync(Expression<Func<T, bool>> predictate, string[] includes,  CancellationToken cancellationToken = default)
         {
-            var query = dataBaseContext.Set<T>()
+            var query = dataBaseContext
+                .Set<T>()
                 .Where(predictate);
 
             foreach (var include in includes)
@@ -36,8 +37,24 @@ namespace Persistence.EntityFramowork
 
         public async Task SaveAsync(T entity, CancellationToken cancellationToken = default)
         {
-            await dataBaseContext.AddAsync(entity);
-            await dataBaseContext.SaveChangesAsync(cancellationToken);
+            if (Exist(entity))
+            {
+                dataBaseContext.Update(entity);
+                await dataBaseContext.SaveChangesAsync(cancellationToken);
+            }
+
+            else
+            {
+                dataBaseContext.Add(entity);
+                await dataBaseContext.SaveChangesAsync(cancellationToken);
+            }
+        }
+
+        private bool Exist(T entity)
+        {
+            return dataBaseContext.ChangeTracker
+                .Entries<T>()
+                .Any(e => e.Entity.Id == entity.Id);
         }
     }
 }

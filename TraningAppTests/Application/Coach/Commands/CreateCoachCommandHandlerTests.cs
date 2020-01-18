@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
 using Persistence;
 using Persistence.EntityFramowork;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using TraningAppTests.Shared;
@@ -37,12 +38,17 @@ namespace TraningAppTests.Application.Coach.Commands
 
             var validationResult = validator.Validate(command);
 
+            if (!validationResult.IsValid)
+                throw new Exception(validationResult.Errors.ToString());
+
             await coachCommandHandler.HandleAsync(command);
 
-            var coach = context.Coaches
+            var coaches = await context.Coaches.ToListAsync();
+
+            var coach = await context.Coaches
                 .Where(x => x.Login == login)
                 .Include(x => x.Email)
-                .FirstOrDefault();
+                .FirstOrDefaultAsync();
 
             Assert.IsTrue(validationResult.IsValid);
             Assert.AreEqual(coach.Login, login);

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Repositories
 {
-    public interface IWriteRepository<T> where T : Coach
+    public interface IWriteRepository<T> where T : AggregateRoot
     {
         Task<T> GetByAsync(Expression<Func<T, bool>> predictate, string[] includes, CancellationToken cancellationToken = default);
         Task SaveAsync(T entity, CancellationToken cancellationToken = default);

@@ -20,12 +20,12 @@ namespace Application.Coach.Commands
             var email = Email.Create(command.Email);
 
             var coach = Domain.Coach.Create(
-                login: command.Login,
-                password: command.Password,
-                firstName: command.FirstName,
-                lastName: command.LastName,
-                preSharedKey: command.PreSharedKey,
-                email: email);
+                command.Login,
+                command.Password,
+                command.FirstName,
+                command.LastName,
+                command.PreSharedKey,
+                email);
 
             await repository.SaveAsync(coach);
         }

@@ -1,7 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using ApplicationQueries.Runners;
-
 using Microsoft.Extensions.Options;
 using Notification.Abstractions;
 using Notification.Email;

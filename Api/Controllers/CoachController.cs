@@ -1,4 +1,5 @@
-﻿using Application.Coach.Commands;
+﻿using Api.ViewModels;
+using Application.Coach.Commands;
 using ApplicationQueries.Runners;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -64,6 +65,19 @@ namespace TraingAppBackEnd.Controllers
             var result = await queryDispatcher.ExecuteAsync(query);
 
             return Ok(result);
+        }
+
+        [HttpPost("runner")]
+        public async Task<IActionResult> CreateRunner([FromBody] CreateRunnerViewModel request)
+        {
+            var command = new CreateRunnerCommand(
+                firstName: request.FirstName, 
+                lastName: request.LastName, 
+                email: request.Email);
+
+            await commandSender.SendAsync(command);
+
+            return Ok();
         }
     }
 }

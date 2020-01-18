@@ -24,13 +24,11 @@ namespace TraningAppTests.Application.Coach.Commands
         private CreateRunnerCommandHandler createRunnerCommandHandler;
         private CreateRunnerCommandValidator validator;
         private Mock<IHttpContextAccessor> httpContextMock;
-        private DefaultHttpContext httpContext;
 
         [SetUp]
         public void StartUp()
         {
             httpContextMock = new Mock<IHttpContextAccessor>();
-            httpContext = new DefaultHttpContext();
 
             context = DbContextFactory.CreateWithData();
             repository = new WriteRepository<Domain.Coach>(context);           
@@ -53,7 +51,7 @@ namespace TraningAppTests.Application.Coach.Commands
 
             var commandHandler = new CreateRunnerCommandHandler(repository, httpContextMock.Object);
 
-            var runners2 = context.Runners.ToList();
+            var runnersListBeforeHandlingCommand = context.Runners.ToList();
 
             await commandHandler.HandleAsync(command);
 

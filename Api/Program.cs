@@ -8,6 +8,7 @@ using Microsoft.Extensions.Configuration;
 using System.IO;
 using System.Reflection;
 using Api.AppStart;
+using App.Metrics.AspNetCore;
 
 namespace TraingAppBackEnd
 {
@@ -41,6 +42,7 @@ namespace TraingAppBackEnd
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
+            .UseMetrics()
             .ConfigureServices(s => s.AddAutofac())
             .UseStartup<Startup>()
             .UseSerilog();      

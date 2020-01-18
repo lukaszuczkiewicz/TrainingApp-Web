@@ -12,7 +12,7 @@ namespace Domain
             Password = password;
             FirstName = firstName;
             LastName = lastName;
-            Email = Email;
+            Email = email;
             PreSharedKey = preSharedKey;
         }
 
