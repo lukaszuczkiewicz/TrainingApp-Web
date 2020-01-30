@@ -52,6 +52,8 @@ namespace Application.Coach.Commands
 
             await eventPublisher.PublishAsync<TrainingCreated>
                 (new TrainingCreated(training.Id, DateTime.Now, coachName, runner.Email.EmailAdress));
+
+            await repository.SaveAsync(coach);
         }
     }
 }
