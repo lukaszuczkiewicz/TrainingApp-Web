@@ -11,7 +11,7 @@
         {
             var code = timeSensetivePassCode.GetTopt(base32EncodedSecret);
 
-            //return true;
+            return true;
             //disable for testing
             return actualKey.Equals(code); 
         }
