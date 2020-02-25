@@ -38,6 +38,10 @@ namespace TraingAppBackEnd.CompositionRoot
             builder.RegisterType<CreateTrainingCommandHandler>()
                 .As<ICommandHandlerAsync<CreateTrainingCommand>>()
                 .InstancePerLifetimeScope();
+
+            builder.RegisterType<DeleteRunnerCommandHandler>()
+                .As<ICommandHandlerAsync<DeleteRunnerCommand>>()
+                .InstancePerLifetimeScope();
         }
 
         private static void RegisterQueries(ContainerBuilder builder)

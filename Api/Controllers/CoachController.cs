@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PlainCQRS.Core.Commands;
 using PlainCQRS.Core.Queries;
+using System;
 using System.Threading.Tasks;
 using TraingAppBackEnd.ViewModels;
 
@@ -74,6 +75,15 @@ namespace TraingAppBackEnd.Controllers
                 firstName: request.FirstName, 
                 lastName: request.LastName, 
                 email: request.Email);
+
+            await commandSender.SendAsync(command);
+
+            return Ok();
+        }
+        [HttpPost("runner/{runnerId}")]
+        public async Task<IActionResult> DeleteRunner(Guid runnerId)
+        {
+            var command = new DeleteRunnerCommand(runnerId);
 
             await commandSender.SendAsync(command);
 

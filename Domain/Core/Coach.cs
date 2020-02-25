@@ -42,6 +42,11 @@ namespace Domain
         {
             Runners.Add(runner);
         }
+        public void UpdateRunner(Runner runner, string id)
+        {
+            //Runners.Add(runner);
+            //var runnerToUpdate = Runners.Find(r => r. = id);
+        }
 
         public void AddTrainigForRunner(Runner runner, Training training)
         {
