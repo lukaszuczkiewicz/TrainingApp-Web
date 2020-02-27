@@ -80,6 +80,21 @@ namespace TraingAppBackEnd.Controllers
 
             return Ok();
         }
+
+        [HttpPost("runner/update")]
+        public async Task<IActionResult> UpdateRunner([FromBody] UpdateRunnerViewModel request)
+        {
+            var command = new UpdateRunnerCommand(
+                id: request.Id,
+                firstName: request.FirstName,
+                lastName: request.LastName,
+                email: request.Email);
+
+            await commandSender.SendAsync(command);
+
+            return Ok();
+        }
+
         [HttpPost("runner/{runnerId}")]
         public async Task<IActionResult> DeleteRunner(Guid runnerId)
         {

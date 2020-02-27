@@ -1,5 +1,6 @@
 ﻿using Domain.Core;
 using Domain.SharedKernel;
+using System;
 using System.Collections.Generic;
 
 namespace Domain
@@ -41,11 +42,6 @@ namespace Domain
         public void AddRunner(Runner runner)
         {
             Runners.Add(runner);
-        }
-        public void UpdateRunner(Runner runner, string id)
-        {
-            //Runners.Add(runner);
-            //var runnerToUpdate = Runners.Find(r => r. = id);
         }
 
         public void AddTrainigForRunner(Runner runner, Training training)
