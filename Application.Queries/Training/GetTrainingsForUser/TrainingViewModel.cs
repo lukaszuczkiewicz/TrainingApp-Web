@@ -5,8 +5,8 @@ namespace Application.Queries.Training.GetTrainingsForUser
 {
     public class TrainingViewModel
     {
-        public CoachViewModel Coach { get; protected set; }
-
+        //public CoachViewModel Coach { get; protected set; }
+        public Guid Id { get; protected set; }
         public DateTime DateToDo { get; protected set; }
         public DateTime Created { get; protected set; }
         //public TraningDetails TraningDetails { get; protected set; }

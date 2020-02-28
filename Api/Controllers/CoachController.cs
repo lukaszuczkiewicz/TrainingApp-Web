@@ -1,6 +1,7 @@
 ﻿using Api.ViewModels;
 using Application.Coach.Commands;
 using ApplicationQueries.Runners;
+using ApplicationQueries.Training;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PlainCQRS.Core.Commands;
@@ -58,6 +59,16 @@ namespace TraingAppBackEnd.Controllers
             return Ok();
         }
 
+        [HttpGet("trainings")]
+        public async Task<IActionResult> GetTrainings()
+        {
+            var query = new GetTrainingsQuery();
+
+            var result = await queryDispatcher.ExecuteAsync(query);
+
+            return Ok(result);
+        }
+
         [HttpGet("runners")]
         public async Task<IActionResult> GetRunners()
         {
@@ -101,6 +112,13 @@ namespace TraingAppBackEnd.Controllers
             var command = new DeleteRunnerCommand(runnerId);
 
             await commandSender.SendAsync(command);
+
+            return Ok();
+        }
+        [HttpPost("report-issue")]
+        public async Task<IActionResult> ReportIssue(string msg)
+        {
+
 
             return Ok();
         }
