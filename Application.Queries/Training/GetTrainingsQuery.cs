@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace ApplicationQueries.Training
 {
-    public class GetTrainingsQuery: IQuery<IEnumerable<TrainingViewModel>>
+    public class GetTrainingsQuery: IQuery<IEnumerable<TrainingToReturnViewModel>>
     {
         public GetTrainingsQuery()
         { }

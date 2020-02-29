@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Persistence.DapperHandlers.QueryHandlers
 {
-    public class GetTrainingsQueryHandler: IQueryHandlerAsync<GetTrainingsQuery, IEnumerable<TrainingViewModel>>
+    public class GetTrainingsQueryHandler: IQueryHandlerAsync<GetTrainingsQuery, IEnumerable<TrainingToReturnViewModel>>
     {
         private readonly IDbConfigProvider databaseProvider;
         private readonly IHttpContextAccessor httpContext;
@@ -25,20 +25,33 @@ namespace Persistence.DapperHandlers.QueryHandlers
             this.httpContext = httpContext;
         }
 
-        public async Task<IEnumerable<TrainingViewModel>> HandleAsync(GetTrainingsQuery query, CancellationToken cancellationToken = default)
+        public async Task<IEnumerable<TrainingToReturnViewModel>> HandleAsync(GetTrainingsQuery query, CancellationToken cancellationToken = default)
         {
             var coachId = httpContext.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
-            var sql = @"SELECT * FROM [Core].[Trainings]";
+            var sql = @"SELECT
+                        [Core].[Trainings].[Id],
+                        [Core].[Trainings].[DateToDo],
+                        [Core].[Trainings].[Created],
+                        [Core].[Trainings].[IsDone],
+                        [dbo].[TraningDetails].[Details],
+                        [dbo].[TraningDetails].[Comment],
+                        [Core].[Runners].[FirstName],
+                        [Core].[Runners].[LastName]
+                        FROM (([Core].[Trainings]
+                        INNER JOIN [dbo].[TraningDetails]
+                        ON [Core].[Trainings].[TraningDetailsId] = [dbo].[TraningDetails].[Id])
+                        INNER JOIN [Core].[Runners]
+                        ON [Core].[Trainings].[RunnerId] = [Core].[Runners].[Id])";
 
             using (var connection = new SqlConnection(databaseProvider.ConnectionStrings.DefaultConnection))
             {
                 connection.Open();
 
-                var trainings = await connection.QueryAsync<TrainingViewModel>
+                var trainings = await connection.QueryAsync<TrainingToReturnViewModel>
                     (sql);
 
-                return await connection.QueryAsync<TrainingViewModel>(sql);
+                return await connection.QueryAsync<TrainingToReturnViewModel>(sql);
             }
         }
     }

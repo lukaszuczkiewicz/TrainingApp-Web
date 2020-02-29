@@ -61,7 +61,7 @@ namespace TraingAppBackEnd.CompositionRoot
                 .InstancePerLifetimeScope();
 
             builder.RegisterType<GetTrainingsQueryHandler>()
-                .As<IQueryHandlerAsync<GetTrainingsQuery, IEnumerable<TrainingViewModel>>>()
+                .As<IQueryHandlerAsync<GetTrainingsQuery, IEnumerable<TrainingToReturnViewModel>>>()
                 .InstancePerLifetimeScope();
 
             builder.RegisterType<GetCoachesQueryHandler>()
