@@ -21,6 +21,13 @@ namespace Domain
             return new Training(dateToDo, traningDetails);
         }
 
+        public void Update (DateTime dateToDo, TraningDetails traningDetails)
+        {
+            DateToDo = dateToDo;
+            TraningDetails = traningDetails;
+
+        }
+
         public DateTime DateToDo { get; protected set; }
         public DateTime Created { get; protected set; }
         public virtual TraningDetails TraningDetails { get; protected set; }

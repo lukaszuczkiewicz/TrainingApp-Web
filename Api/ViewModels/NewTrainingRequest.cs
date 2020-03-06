@@ -2,7 +2,7 @@
 
 namespace TraingAppBackEnd.ViewModels
 {
-    public class NewTrainingReqest
+    public class NewTrainingRequest
     {
         public Guid RunnerId { get; set; }
         public DateTime TimeToDo { get; set; }

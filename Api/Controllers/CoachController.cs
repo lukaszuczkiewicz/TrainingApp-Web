@@ -45,13 +45,29 @@ namespace TraingAppBackEnd.Controllers
         }
         
         [HttpPost("training")]
-        public async Task<IActionResult> CreateTrening([FromBody] NewTrainingReqest reqest)
+        public async Task<IActionResult> CreateTrening([FromBody] NewTrainingRequest reqest)
         {
             var command = new CreateTrainingCommand(
                 runnerId: reqest.RunnerId,
                 timeToDo: reqest.TimeToDo,
                 details: reqest.Details,
                 comments: reqest.Comments
+                );
+
+            await commandSender.SendAsync(command);
+
+            return Ok();
+        }
+
+        [HttpPost("training/update")]
+        public async Task<IActionResult> UpdateTraining([FromBody] UpdateTrainingRequest request)
+        {
+            var command = new UpdateTrainingCommand(
+                id: request.Id,
+                runnerId: request.RunnerId,
+                timeToDo: request.TimeToDo,
+                details: request.Details,
+                comments: request.Comments
                 );
 
             await commandSender.SendAsync(command);

@@ -4,7 +4,7 @@ using TraingAppBackEnd.ViewModels;
 
 namespace Api.ViewModels.NewFolder
 {
-    public class NewTraningReqestValidator : AbstractValidator<NewTrainingReqest>
+    public class NewTraningReqestValidator : AbstractValidator<NewTrainingRequest>
     {
         public NewTraningReqestValidator()
         {

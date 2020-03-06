@@ -41,6 +41,10 @@ namespace TraingAppBackEnd.CompositionRoot
                 .As<ICommandHandlerAsync<CreateTrainingCommand>>()
                 .InstancePerLifetimeScope();
 
+            builder.RegisterType<UpdateTrainingCommandHandler>()
+                .As<ICommandHandlerAsync<UpdateTrainingCommand>>()
+                .InstancePerLifetimeScope();
+
             builder.RegisterType<UpdateRunnerCommandHandler>()
                 .As<ICommandHandlerAsync<UpdateRunnerCommand>>()
                 .InstancePerLifetimeScope();

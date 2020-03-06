@@ -31,6 +31,7 @@ namespace Persistence.DapperHandlers.QueryHandlers
 
             var sql = @"SELECT
                         [Core].[Trainings].[Id],
+                        [Core].[Trainings].[RunnerId],
                         [Core].[Trainings].[DateToDo],
                         [Core].[Trainings].[Created],
                         [Core].[Trainings].[IsDone],
