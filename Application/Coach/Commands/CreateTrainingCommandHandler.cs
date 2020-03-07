@@ -50,8 +50,15 @@ namespace Application.Coach.Commands
 
             var coachName = $"{coach.FirstName} {coach.LastName}";
 
-            await eventPublisher.PublishAsync<TrainingCreated>
+            try
+            {
+                await eventPublisher.PublishAsync<TrainingCreated>
                 (new TrainingCreated(training.Id, DateTime.Now, coachName, runner.Email.EmailAdress));
+            }
+            catch
+            {
+
+            }
 
             await repository.SaveAsync(coach);
         }

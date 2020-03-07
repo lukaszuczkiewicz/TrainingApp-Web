@@ -43,7 +43,7 @@ namespace TraingAppBackEnd.Controllers
 
             return Ok();
         }
-        
+
         [HttpPost("training")]
         public async Task<IActionResult> CreateTrening([FromBody] NewTrainingRequest reqest)
         {
@@ -99,8 +99,8 @@ namespace TraingAppBackEnd.Controllers
         public async Task<IActionResult> CreateRunner([FromBody] CreateRunnerViewModel request)
         {
             var command = new CreateRunnerCommand(
-                firstName: request.FirstName, 
-                lastName: request.LastName, 
+                firstName: request.FirstName,
+                lastName: request.LastName,
                 email: request.Email);
 
             await commandSender.SendAsync(command);
