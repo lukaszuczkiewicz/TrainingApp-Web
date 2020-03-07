@@ -36,7 +36,7 @@ namespace Persistence.DapperHandlers.QueryHandlers
                         [LastName],
                         [Email]
                     FROM [Core].[Runners]
-                WHERE [CoachId] = @coachId";
+                WHERE [CoachId] = @coachId";                       
 
             using (var connection = new SqlConnection(databaseProvider.ConnectionStrings.DefaultConnection))
             {

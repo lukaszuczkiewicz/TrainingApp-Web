@@ -4,6 +4,7 @@ using Dapper;
 using Microsoft.AspNetCore.Http;
 using Persistence.Abstractions;
 using PlainCQRS.Core.Queries;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Security.Claims;
@@ -38,21 +39,20 @@ namespace Persistence.DapperHandlers.QueryHandlers
                         [dbo].[TraningDetails].[Details],
                         [dbo].[TraningDetails].[Comment],
                         [Core].[Runners].[FirstName],
-                        [Core].[Runners].[LastName]
+                        [Core].[Runners].[LastName],
+                        [Core].[Runners].[CoachId]
                         FROM (([Core].[Trainings]
                         INNER JOIN [dbo].[TraningDetails]
                         ON [Core].[Trainings].[TraningDetailsId] = [dbo].[TraningDetails].[Id])
                         INNER JOIN [Core].[Runners]
-                        ON [Core].[Trainings].[RunnerId] = [Core].[Runners].[Id])";
+                        ON [Core].[Trainings].[RunnerId] = [Core].[Runners].[Id])
+                        WHERE [Core].[Runners].[CoachId] = @coachId";
 
             using (var connection = new SqlConnection(databaseProvider.ConnectionStrings.DefaultConnection))
             {
                 connection.Open();
 
-                var trainings = await connection.QueryAsync<TrainingToReturnViewModel>
-                    (sql);
-
-                return await connection.QueryAsync<TrainingToReturnViewModel>(sql);
+                return await connection.QueryAsync<TrainingToReturnViewModel>(sql, new { coachId });
             }
         }
     }
